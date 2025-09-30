@@ -1,6 +1,6 @@
 /* 背景を単色に */
 body {
-  background-color: #f0f0f0;  /* 薄いグレー */
+  background-color: #f0f0f0;
   color: #000;
   font-family: "Courier New", monospace; /* 等幅でレトロ感 */
   line-height: 1.6;
@@ -18,9 +18,9 @@ h1, h2, h3 {
 main {
   max-width: 700px;
   margin: 0 auto;
-  background: #fff;
+  /* background: #ffffff; */
   padding: 1rem;
-  border: 1px solid #aaa;
+  /* border: 1px solid #aaa; */
 }
 
 /* リンクは昔風ブルー */
