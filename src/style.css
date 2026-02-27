@@ -1,40 +1,426 @@
-/* 背景を単色に */
-body {
-  background-color: #f0f0f0;
-  color: #000;
-  font-family: "Courier New", monospace; /* 等幅でレトロ感 */
-  line-height: 1.6;
+/* ========================================
+   古のブログ — 2000年代レトロスタイル
+   ======================================== */
+
+/* --- リセット & ベース --- */
+* {
   margin: 0;
-  padding: 1rem;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* 見出しは下線で区切る */
-h1, h2, h3 {
-  border-bottom: 1px solid #000;
-  padding-bottom: 0.25rem;
+body {
+  /* ドット柄の背景（タイル風） */
+  background-color: #c0c8d8;
+  background-image:
+    radial-gradient(circle, #a8b0c0 1px, transparent 1px);
+  background-size: 12px 12px;
+  color: #1a1a2e;
+  font-family: "ＭＳ ゴシック", "MS Gothic", "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.7;
 }
 
-/* 中央寄せ・幅制限 */
+/* --- 全体ラッパー --- */
+.page-wrapper {
+  max-width: 920px;
+  margin: 16px auto;
+  border: 3px outset #aab4c8;
+  background: #e8ecf4;
+  box-shadow: 4px 4px 0px #6a7080;
+}
+
+/* --- marquee 風スクロールテキスト --- */
+.marquee-bar {
+  background: linear-gradient(to right, #2a3a6a, #4a5a9a, #2a3a6a);
+  color: #ffff00;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 3px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  border-bottom: 2px inset #5a6a8a;
+}
+
+.marquee-bar .marquee-text {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee-scroll 18s linear infinite;
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* --- ヘッダー --- */
+header {
+  background: linear-gradient(180deg, #3a4a7a 0%, #2a3a6a 100%);
+  color: #ffffff;
+  text-align: center;
+  padding: 12px 16px;
+  border-bottom: 3px outset #5a6a9a;
+}
+
+header h1 {
+  font-size: 24px;
+  letter-spacing: 4px;
+  text-shadow:
+    2px 2px 0px #1a1a3a,
+    0 0 8px #8888ff;
+  border-bottom: none;
+  padding-bottom: 0;
+  margin: 0;
+}
+
+header h1 a {
+  color: #ffff88 !important;
+  text-decoration: none;
+}
+
+header h1 a:visited {
+  color: #ffff88 !important;
+}
+
+header h1 a:hover {
+  color: #ffffff !important;
+  text-shadow:
+    2px 2px 0px #1a1a3a,
+    0 0 16px #aaaaff,
+    0 0 32px #ffffff;
+}
+
+header .site-desc {
+  font-size: 11px;
+  color: #aabbee;
+  margin-top: 2px;
+}
+
+/* --- コンテンツレイアウト（2カラム） --- */
+.content-area {
+  display: flex;
+  gap: 0;
+  min-height: 500px;
+}
+
+/* --- メインコンテンツ --- */
 main {
-  max-width: 700px;
-  margin: 0 auto;
-  /* background: #ffffff; */
-  padding: 1rem;
-  /* border: 1px solid #aaa; */
+  flex: 1;
+  padding: 16px;
+  border-right: 2px groove #b0b8c8;
+  max-width: none;
+  margin: 0;
+  background: #f0f2f8;
 }
 
-/* リンクは昔風ブルー */
+/* --- 見出し --- */
+h1,
+h2,
+h3 {
+  color: #2a3a6a;
+  border-bottom: 2px solid #8090b0;
+  padding-bottom: 4px;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+h2 {
+  font-size: 16px;
+  background: linear-gradient(to right, #d0d8e8, transparent);
+  padding: 4px 8px;
+  border-left: 4px solid #4a5a9a;
+}
+
+h3 {
+  font-size: 14px;
+  border-bottom: 1px dashed #8090b0;
+}
+
+/* --- リンク（昔風） --- */
 a {
-  color: blue;
+  color: #0000cc;
   text-decoration: underline;
 }
+
 a:visited {
-  color: purple;
+  color: #660099;
 }
 
-/* フッターは小さめ文字 */
-footer {
-  font-size: 0.8rem;
+a:hover {
+  color: #ff0000;
+  text-decoration: underline;
+}
+
+a:active {
+  color: #ff6600;
+}
+
+/* --- ヘッダーリンク上書き --- */
+header a {
+  color: inherit;
+  text-decoration: none;
+}
+
+header a:visited {
+  color: inherit;
+}
+
+header a:hover {
+  text-decoration: none;
+}
+
+/* --- 記事一覧 --- */
+.post-list {
+  list-style: none;
+  padding: 0;
+}
+
+.post-list li {
+  background: #ffffff;
+  border: 1px solid #a0a8b8;
+  border-left: 4px solid #4a5a9a;
+  margin-bottom: 8px;
+  padding: 8px 12px;
+  transition: background 0.15s;
+}
+
+.post-list li:hover {
+  background: #e8ecff;
+}
+
+.post-list .post-date {
+  font-size: 11px;
+  color: #666;
+}
+
+/* --- 記事メタ情報（日付など） --- */
+.post-meta {
+  font-size: 12px;
+  color: #555;
+  background: #e0e4f0;
+  display: inline-block;
+  padding: 2px 8px;
+  border: 1px solid #b0b8c8;
+}
+
+/* --- 記事ナビゲーション --- */
+.post-nav {
+  margin-top: 12px;
+  padding: 8px;
+  background: #e0e4f0;
+  border: 1px solid #a0a8b8;
+  font-size: 13px;
+}
+
+.post-nav p {
+  margin: 4px 0;
+}
+
+/* --- 記事コンテンツ --- */
+article {
+  background: #ffffff;
+  border: 2px inset #c0c8d8;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+}
+
+article ul,
+article ol {
+  padding-left: 1.5em;
+  margin: 8px 0;
+}
+
+.article-title {
+  font-size: 18px;
+  color: #1a2a5a;
+  background: linear-gradient(to right, #c0c8e0, transparent);
+  padding: 4px 8px;
+  border-left: 4px solid #2a3a6a;
+  margin-top: 0;
+}
+
+/* ========================================
+   サイドバー
+   ======================================== */
+aside.sidebar {
+  width: 220px;
+  min-width: 220px;
+  padding: 12px;
+  background: #dce0ec;
+  font-size: 12px;
+}
+
+/* サイドバーの各ボックス */
+.side-box {
+  background: #f0f2f8;
+  border: 2px outset #b0b8c8;
+  margin-bottom: 12px;
+  padding: 0;
+}
+
+.side-box-title {
+  background: linear-gradient(180deg, #4a5a9a, #3a4a7a);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 8px;
   text-align: center;
-  margin-top: 2rem;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 0 #1a1a3a;
+}
+
+.side-box-content {
+  padding: 8px;
+}
+
+/* プロフィール */
+.profile-icon {
+  display: block;
+  margin: 0 auto 6px;
+  width: 64px;
+  height: 64px;
+  background: #c0c8d8;
+  border: 2px inset #a0a8b8;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+
+.profile-name {
+  text-align: center;
+  font-weight: bold;
+  color: #2a3a6a;
+  margin-bottom: 4px;
+}
+
+.profile-msg {
+  color: #444;
+  line-height: 1.5;
+}
+
+/* サイドバーリスト */
+.side-list {
+  list-style: none;
+  padding: 0;
+}
+
+.side-list li {
+  padding: 3px 0;
+  border-bottom: 1px dotted #a0a8b8;
+}
+
+.side-list li:last-child {
+  border-bottom: none;
+}
+
+.side-list a {
+  font-size: 12px;
+}
+
+/* 訪問者カウンター（フッター上部バー） */
+.counter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  background: #f8faff;
+  border-top: 2px groove #b0b8c8;
+  padding: 6px 12px;
+  font-size: 11px;
+  color: #2a3a6a;
+}
+
+.counter-bar img {
+  display: block;
+  height: 120px;
+  width: auto;
+  image-rendering: pixelated;
+}
+
+/* --- フッター --- */
+footer {
+  background: linear-gradient(180deg, #3a4a7a 0%, #2a3a6a 100%);
+  color: #aabbdd;
+  font-size: 10px;
+  text-align: center;
+  padding: 8px;
+  border-top: 3px outset #5a6a9a;
+}
+
+footer hr {
+  display: none;
+}
+
+footer p {
+  margin: 2px 0;
+}
+
+footer a {
+  color: #88aaee;
+}
+
+/* --- タグ --- */
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.tag-badge {
+  display: inline-block;
+  background: linear-gradient(180deg, #e8ecf4, #c0c8d8);
+  color: #2a3a6a !important;
+  font-size: 11px;
+  padding: 2px 8px;
+  border: 1px outset #b0b8c8;
+  text-decoration: none !important;
+  white-space: nowrap;
+}
+
+.tag-badge:hover {
+  background: linear-gradient(180deg, #f0f4ff, #d8e0f0);
+  color: #ff0000 !important;
+}
+
+.tag-badge:visited {
+  color: #2a3a6a !important;
+}
+
+.tag-link {
+  font-size: 12px;
+}
+
+.back-link {
+  margin-top: 12px;
+}
+
+/* --- ユーティリティ --- */
+hr {
+  border: none;
+  border-top: 1px solid #8090b0;
+  margin: 8px 0;
+}
+
+/* --- レスポンシブ対応 --- */
+@media (max-width: 700px) {
+  .content-area {
+    flex-direction: column;
+  }
+
+  main {
+    border-right: none;
+    border-bottom: 2px groove #b0b8c8;
+  }
+
+  aside.sidebar {
+    width: 100%;
+    min-width: auto;
+  }
 }

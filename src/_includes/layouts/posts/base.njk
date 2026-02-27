@@ -1,18 +1,36 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <title>{{ title }}</title>
-  <link rel="stylesheet" href="/style.css">
-</head>
-<body>
-  {% include 'partials/header.njk' %}
+{% extends "layouts/base.njk" %}
 
-  <main>
-    <h1>{{ title }}</h1>
+{% block content %}
+  <article>
+    <h2 class="article-title">{{ title }}</h2>
+    <p class="post-meta">
+      📅 {{ page.date | readableDate }}
+      {% if tags %}
+        &nbsp;|&nbsp;
+        🏷️
+        {% for tag in tags %}
+          <a href="/tags/{{ tag }}/" class="tag-link">{{ tag }}</a>{% if not loop.last %}, {% endif %}
+        {% endfor %}
+      {% endif %}
+    </p>
+    <hr>
     {{ content | safe }}
-  </main>
+  </article>
 
-  {% include 'partials/footer.njk' %}
-</body>
-</html>
+  <hr>
+
+  <nav class="post-nav">
+    <p><a href="/">← 記事一覧に戻る</a></p>
+    {% set postsList = collections.posts %}
+    {% for post in postsList %}
+      {% if post.url == page.url %}
+        {% if loop.index0 < postsList.length - 1 %}
+          <p>前の記事: <a href="{{ postsList[loop.index0 + 1].url }}">{{ postsList[loop.index0 + 1].data.title }}</a></p>
+        {% endif %}
+        {% if loop.index0 > 0 %}
+          <p>次の記事: <a href="{{ postsList[loop.index0 - 1].url }}">{{ postsList[loop.index0 - 1].data.title }}</a></p>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </nav>
+{% endblock %}

@@ -1,0 +1,19 @@
+{
+    "title": "ポラリス観測所",
+    "description": "個人的な日記ブログ",
+    "author": "Island",
+    "url": "",
+    "lang": "ja",
+    "copyright": "2025",
+    "profile": {
+        "name": "Island",
+        "message": "日記などを書きます",
+        "favorites": "アニメ / ゲーム"
+    },
+    "links": [
+        {
+            "name": "技術ブログ",
+            "url": "https://tech.n-island.dev/"
+        }
+    ]
+}

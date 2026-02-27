@@ -1,0 +1,30 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: collections
+  size: 1
+  alias: tag
+  filter:
+    - all
+    - posts
+    - tagList
+    - monthlyArchive
+  addAllPagesToCollections: false
+permalink: /tags/{{ tag }}/
+eleventyComputed:
+  title: "タグ：{{ tag }}"
+---
+
+<h2>🏷️ タグ：{{ tag }}</h2>
+
+<ul class="post-list">
+{% set taggedPosts = collections[tag] %}
+{% for post in taggedPosts | reverse %}
+  <li>
+    <a href="{{ post.url }}">{{ post.data.title }}</a>
+    <span class="post-date">（{{ post.date | readableDate }}）</span>
+  </li>
+{% endfor %}
+</ul>
+
+<p class="back-link"><a href="/">← トップページに戻る</a></p>

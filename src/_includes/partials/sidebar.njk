@@ -1,0 +1,61 @@
+<aside class="sidebar">
+  <!-- プロフィール -->
+  <div class="side-box">
+    <div class="side-box-title">★ プロフィール ★</div>
+    <div class="side-box-content">
+      <div class="profile-icon">🐱</div>
+      <div class="profile-name">{{ site.profile.name }}</div>
+      <p class="profile-msg">{{ site.profile.message }}</p>
+      <hr>
+      <p>好きなもの：{{ site.profile.favorites }}</p>
+    </div>
+  </div>
+
+  <!-- 最近の記事 -->
+  <div class="side-box">
+    <div class="side-box-title">📝 最近の記事</div>
+    <div class="side-box-content">
+      <ul class="side-list">
+      {% for post in collections.posts | head(5) %}
+        <li><a href="{{ post.url }}">{{ post.data.title }}</a></li>
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <!-- タグ一覧 -->
+  <div class="side-box">
+    <div class="side-box-title">🏷️ タグ</div>
+    <div class="side-box-content">
+      <div class="tag-cloud">
+      {% for tag in collections.tagList %}
+        <a href="/tags/{{ tag }}/" class="tag-badge">{{ tag }}</a>
+      {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- 月別アーカイブ -->
+  <div class="side-box">
+    <div class="side-box-title">📅 月別アーカイブ</div>
+    <div class="side-box-content">
+      <ul class="side-list">
+      {% for month in collections.monthlyArchive %}
+        <li><a href="/archive/{{ month.key }}/">{{ month.label }}（{{ month.posts.length }}件）</a></li>
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <!-- リンク集 -->
+  <div class="side-box">
+    <div class="side-box-title">🔗 リンク集</div>
+    <div class="side-box-content">
+      <ul class="side-list">
+      {% for link in site.links %}
+        <li><a href="{{ link.url }}" target="_blank">{{ link.name }}</a></li>
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+</aside>

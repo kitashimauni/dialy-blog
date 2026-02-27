@@ -1,0 +1,23 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: collections.monthlyArchive
+  size: 1
+  alias: month
+permalink: /archive/{{ month.key }}/
+eleventyComputed:
+  title: "{{ month.label }}の記事"
+---
+
+<h2>📅 {{ month.label }}の記事</h2>
+
+<ul class="post-list">
+{% for post in month.posts | reverse %}
+  <li>
+    <a href="{{ post.url }}">{{ post.data.title }}</a>
+    <span class="post-date">（{{ post.date | readableDate }}）</span>
+  </li>
+{% endfor %}
+</ul>
+
+<p class="back-link"><a href="/">← トップページに戻る</a></p>

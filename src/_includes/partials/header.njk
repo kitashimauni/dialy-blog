@@ -1,4 +1,7 @@
 <header>
-  <h1>古のブログ</h1>
-  <hr>
+  <h1><a href="/">{{ site.title }}</a></h1>
+  <div class="site-desc">{{ site.description }}</div>
 </header>
+<div class="marquee-bar">
+  <span class="marquee-text">★☆★ ようこそ {{ site.title }} へ ★☆★　ごゆっくりどうぞ～♪　最終更新：{{ collections.posts[0].date | readableDate }}　★☆★</span>
+</div>

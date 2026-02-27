@@ -1,17 +1,32 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="{{ site.lang }}">
 <head>
   <meta charset="UTF-8">
-  <title>{{ title }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block pageTitle %}{{ title }}{% endblock %} | {{ site.title }}</title>
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  {% include 'partials/header.njk' %}
+  <div class="page-wrapper">
+    {% include 'partials/header.njk' %}
 
-  <main>
-    {{ content | safe }}
-  </main>
+    <div class="content-area">
+      <main>
+        {% block content %}
+          {{ content | safe }}
+        {% endblock %}
+      </main>
 
-  {% include 'partials/footer.njk' %}
+      {% include 'partials/sidebar.njk' %}
+    </div>
+
+    <div class="counter-bar">
+      <span>あなたは</span>
+      <a href="/posts/20250916/access-counter/"><img src="https://counter.n-island.dev/@blog?name=blog&theme=random&padding=7&offset=0&align=top&scale=1&pixelated=1&darkmode=0" alt="アクセスカウンター"></a>
+      <span>人目の訪問者です！</span>
+    </div>
+
+    {% include 'partials/footer.njk' %}
+  </div>
 </body>
 </html>
