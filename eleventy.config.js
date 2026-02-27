@@ -9,6 +9,7 @@ export const config = {
 
 export default function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy("src/style.css");
+    eleventyConfig.addPassthroughCopy("src/images");
     eleventyConfig.addWatchTarget('src/style.css');
 
     // 記事コレクションを追加
