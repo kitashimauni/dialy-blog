@@ -1,4 +1,5 @@
 import { DateTime } from "luxon";
+import pluginRss from "@11ty/eleventy-plugin-rss";
 
 export const config = {
     dir: {
@@ -8,8 +9,12 @@ export const config = {
 }
 
 export default function (eleventyConfig) {
+    // プラグイン
+    eleventyConfig.addPlugin(pluginRss);
+
     eleventyConfig.addPassthroughCopy("src/style.css");
     eleventyConfig.addPassthroughCopy("src/images");
+    eleventyConfig.addPassthroughCopy("src/robots.txt");
     eleventyConfig.addWatchTarget('src/style.css');
 
     // 記事コレクションを追加
@@ -73,5 +78,16 @@ export default function (eleventyConfig) {
     // 年月キーフィルター (Date -> "2025-09")
     eleventyConfig.addFilter("yearMonthKey", (dateObj) => {
         return DateTime.fromJSDate(dateObj, { zone: 'Asia/Tokyo' }).toFormat("yyyy-LL");
+    });
+
+    // ISO 8601 日付フィルター
+    eleventyConfig.addFilter("isoDate", (dateObj) => {
+        return DateTime.fromJSDate(dateObj, { zone: 'Asia/Tokyo' }).toISO();
+    });
+
+    // 先頭スラッシュ除去フィルター（URL結合用）
+    eleventyConfig.addFilter("removeLeadingSlash", (str) => {
+        if (typeof str !== "string") return str;
+        return str.replace(/^\//, "");
     });
 };
