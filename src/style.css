@@ -418,4 +418,14 @@ hr {
     width: 100%;
     min-width: auto;
   }
+
+  .counter-bar {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 6px 8px;
+  }
+
+  .counter-bar img {
+    height: 60px;
+  }
 }
