@@ -1,6 +1,6 @@
 ---
 title: "進撃の巨人 (Season1 ～ 完結編)"
-date: 2025-09-16
+date: 2026-03-01
 tags:
   - アニメ
 score: 95
