@@ -1,11 +1,69 @@
 import { DateTime } from "luxon";
 import pluginRss from "@11ty/eleventy-plugin-rss";
+import Image from "@11ty/eleventy-img"
+import path from "path"
 
 export const config = {
     dir: {
         input: 'src',
         output: 'public',
     },
+}
+
+function parseImageOptions(sizesOrWidth = "100vw", displayWidth = "") {
+    const widthTokenPattern = /^\d+(?:\.\d+)?(?:%|px|rem|em|vw|vh)$/;
+
+    if (displayWidth) {
+        return {
+            sizes: sizesOrWidth || "100vw",
+            displayWidth,
+        };
+    }
+
+    if (typeof sizesOrWidth === "string" && widthTokenPattern.test(sizesOrWidth.trim())) {
+        return {
+            sizes: "100vw",
+            displayWidth: sizesOrWidth.trim(),
+        };
+    }
+
+    return {
+        sizes: sizesOrWidth || "100vw",
+        displayWidth: "",
+    };
+}
+
+async function imageShortcode(src, alt, sizesOrWidth = "100vw", displayWidth = "") {
+    const { sizes, displayWidth: resolvedDisplayWidth } = parseImageOptions(sizesOrWidth, displayWidth);
+
+    // 記事のフォルダにある画像を探すためのパス調整
+    // srcが "./local-image.jpg" のような相対パスの場合に対応
+    let fullSrc = src;
+    if (!src.startsWith("http")) {
+        fullSrc = path.join(path.dirname(this.page.inputPath), src);
+    }
+
+    let metadata = await Image(fullSrc, {
+        widths: [300, 600, 1200],
+        formats: ["avif", "webp", "jpeg"],
+        outputDir: "./public/img/",
+        urlPath: "/img/",
+    });
+
+    let imageAttributes = {
+        alt,
+        sizes,
+        loading: "lazy",
+        decoding: "async",
+    };
+
+    const html = Image.generateHTML(metadata, imageAttributes);
+
+    if (!resolvedDisplayWidth) {
+        return html;
+    }
+
+    return html.replace("<picture>", `<picture style="width:${resolvedDisplayWidth};">`);
 }
 
 export default function (eleventyConfig) {
@@ -15,7 +73,12 @@ export default function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy("src/style.css");
     eleventyConfig.addPassthroughCopy("src/images");
     eleventyConfig.addPassthroughCopy("src/robots.txt");
+    eleventyConfig.addPassthroughCopy("src/posts/**/*.{jpg,png,gif,svg}");
     eleventyConfig.addWatchTarget('src/style.css');
+    eleventyConfig.addWatchTarget('src/posts/**/*');
+
+    eleventyConfig.addNunjucksAsyncShortcode("image", imageShortcode);
+    eleventyConfig.addLiquidShortcode("image", imageShortcode);
 
     // 記事コレクションを追加
     eleventyConfig.addCollection("posts", (collection) => {
@@ -90,4 +153,6 @@ export default function (eleventyConfig) {
         if (typeof str !== "string") return str;
         return str.replace(/^\//, "");
     });
+
+    return config
 };

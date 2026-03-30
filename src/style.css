@@ -111,6 +111,7 @@ header .site-desc {
 /* --- メインコンテンツ --- */
 main {
   flex: 1;
+  min-width: 0;
   padding: 16px;
   border-right: 2px groove #b0b8c8;
   max-width: none;
@@ -233,6 +234,22 @@ article ul,
 article ol {
   padding-left: 1.5em;
   margin: 8px 0;
+}
+
+article picture {
+  display: block;
+  max-width: 100%;
+}
+
+article img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+article figure {
+  max-width: 100%;
+  margin: 12px auto;
 }
 
 .article-title {

@@ -1,0 +1,14 @@
+{
+    "Eleventy image shortcode": {
+        "scope": "markdown,mdx",
+        "prefix": [
+            "image",
+            "11tyimage",
+            "img11ty"
+        ],
+        "description": "Insert Eleventy image shortcode",
+        "body": [
+            "{% image \"${1:./image.jpg}\", \"${2:画像の説明}\", \"${3:100vw}\", \"${4:60%}\" %}"
+        ]
+    }
+}
