@@ -2,6 +2,7 @@ import { DateTime } from "luxon";
 import pluginRss from "@11ty/eleventy-plugin-rss";
 import Image from "@11ty/eleventy-img"
 import path from "path"
+import { mkdir } from "node:fs/promises";
 
 export const config = {
     dir: {
@@ -9,6 +10,8 @@ export const config = {
         output: 'public',
     },
 }
+
+const imageOutputDir = path.join(config.dir.output, "img");
 
 function parseImageOptions(sizesOrWidth = "100vw", displayWidth = "") {
     const widthTokenPattern = /^\d+(?:\.\d+)?(?:%|px|rem|em|vw|vh)$/;
@@ -43,10 +46,13 @@ async function imageShortcode(src, alt, sizesOrWidth = "100vw", displayWidth = "
         fullSrc = path.join(path.dirname(this.page.inputPath), src);
     }
 
+    // Eleventyの出力先が空のclean buildでも画像生成できるようにする
+    await mkdir(imageOutputDir, { recursive: true });
+
     let metadata = await Image(fullSrc, {
         widths: [300, 600, 1200],
         formats: ["avif", "webp", "jpeg"],
-        outputDir: "./public/img/",
+        outputDir: imageOutputDir,
         urlPath: "/img/",
     });
 
