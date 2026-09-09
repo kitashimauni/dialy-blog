@@ -1,0 +1,33 @@
+version: 1
+
+content:
+  collections:
+    - name: posts
+      label: 日記記事
+      folder: src/posts
+      path: "{{year}}{{month}}{{day}}/{{slug}}"
+      extension: md
+      frontmatter: yaml
+      fields:
+        - name: slug
+          label: Slug
+          widget: string
+        - name: title
+          label: タイトル
+          widget: string
+        - name: date
+          label: 公開日
+          widget: string
+        - name: tags
+          label: タグ
+          widget: list
+        - name: score
+          label: スコア
+          widget: number
+        - name: body
+          label: 本文
+          widget: markdown
+
+media:
+  folder: src/images
+  public_path: /images
