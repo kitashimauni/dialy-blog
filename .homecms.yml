@@ -8,6 +8,7 @@ content:
       path: "{{year}}{{month}}{{day}}/{{slug}}"
       extension: md
       frontmatter: yaml
+      media_folder: "{{dirname}}"
       fields:
         - name: slug
           label: Slug
